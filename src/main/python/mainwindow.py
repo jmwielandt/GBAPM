@@ -5,10 +5,11 @@ import json
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QApplication, QWidget
-from PyQt5.QtWidgets import QPushButton, QFileDialog
+from PyQt5.QtWidgets import QPushButton, QFileDialog, QComboBox
 from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout
 
 from common_backend import CommonBackend
+from color_mixer import ColorMixer
 #import params as p
 
 """
@@ -26,6 +27,8 @@ class MainRoot(QWidget):
         super().__init__(*args, **kwargs)
         self.setWindowTitle("GBA Palette Manager")
         self.initGUI()
+        self.initBack()
+        #self.common_backend.connect_triggers(self)
         self.show()
     
     def initGUI(self):
@@ -64,8 +67,15 @@ class MainRoot(QWidget):
         pass
     
     def initBack(self):
+        self.common_backend = CommonBackend(self)
+        self.color_mixer = ColorMixer(self.common_backend)
+    
+    def add_pal_list(self, sign):
         pass
     
+    def rem_pal_list(self, sign):
+        pass
+
     def open_file(self):
         pass
     
@@ -77,34 +87,15 @@ class MainRoot(QWidget):
     
     def export_file(self):
         pass
-    
-    def pal_index_change(self, i):
-        pass
-    
-    def add_pal_index(self):
-        pass
-    
-    def rem_pal_index(self):
-        pass
-    
-    def edit_pal_index(self):
-        pass
-    
-    def show_pal_index(self):
-        pass
 
-
-main_app = QApplication([])
-main_root = QWidget()
-
-pal_index_counter = 0
-
+"""
 def main_window():
     main_app.setStyle('Fusion')
     open_file_button.clicked.connect(openfile)
     
     pal_list.addItem("0")
     pal_list.currentIndexChanged.connect(palindexchange)
+
     add_pal_index_button.clicked.connect(addpalindex)
     rem_pal_index_button.clicked.connect(rempalindex)
     edit_pal_index_button.clicked.connect(editpalindex)
@@ -159,24 +150,7 @@ def savepalfile():
 def exportfile():
     export_handler(pal_index_counter + 1)
 
-def palindexchange(i):
-    global pal_index
-    
-    pal_index[0] = i
 
-def addpalindex():
-    global pal_index_counter
-    
-    pal_index_counter += 1
-    pal_list.addItem(str(pal_index_counter))
-    pal.append([0, 0, 0])
-
-def rempalindex():
-    global pal_index_counter
-    
-    pal_list.removeItem(pal_index_counter)
-    pal_index_counter -= 1
-    pal.pop()
 
 def editpalindex():
     color_mixer(pal[pal_index[0]][0], pal[pal_index[0]][1], pal[pal_index[0]][2])
@@ -194,7 +168,7 @@ def showpalindex():
     alert.setPalette(bgpal)
     alert.exec_()
 
-
+"""
 
 if __name__ == "__main__":
     app = QApplication([])
