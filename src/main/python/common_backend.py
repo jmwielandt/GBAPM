@@ -1,15 +1,17 @@
-from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtCore import QObject, pyqtSignal
 
 
-class CommonBackend:
+class CommonBackend(QObject):
 
     trigger_add_pal = pyqtSignal(int)
     trigger_rem_pal = pyqtSignal(int)
 
     def __init__(self, parent):
+        super().__init__()
         self.pal = [[0, 0, 0]]
         self.pal_index = [0]
         self.pal_index_counter = 0
+        self.connect_triggers(parent)
         #print(parent)
     
     def connect_triggers(self, parent):

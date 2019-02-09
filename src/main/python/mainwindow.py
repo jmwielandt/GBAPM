@@ -69,6 +69,7 @@ class MainRoot(QWidget):
     def initBack(self):
         self.common_backend = CommonBackend(self)
         self.color_mixer = ColorMixer(self.common_backend)
+        self.open_file_button.clicked.connect(self.open_file)
     
     def add_pal_list(self, sign):
         pass
@@ -77,6 +78,10 @@ class MainRoot(QWidget):
         pass
 
     def open_file(self):
+        filepath = QFileDialog.getOpenFileName(self, "Open file", ".", "Json files (*.json)")
+        print(filepath)
+        if filepath:
+            pass
         pass
     
     def save_file(self):
