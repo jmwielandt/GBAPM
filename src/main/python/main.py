@@ -1,4 +1,4 @@
-from fbs_runtime.application_context import ApplicationContext
+#from fbs_runtime.application_context import ApplicationContext
 
 from mainwindow import *
 from ColorMixer import *

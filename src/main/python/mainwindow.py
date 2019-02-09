@@ -1,78 +1,117 @@
 #The main window.
+import sys
+import json
 
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
-import json
+from PyQt5.QtWidgets import QApplication, QWidget
+from PyQt5.QtWidgets import QPushButton, QFileDialog
+from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout
 
+from common_backend import CommonBackend
+#import params as p
+
+"""
 from ColorMixer import *
 from Rgb5toU16 import *
 from Rgb5toU32 import *
-from globals import *
+
 from Export import *
 from JPAL import *
+"""
+
+
+class MainRoot(QWidget):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.setWindowTitle("GBA Palette Manager")
+        self.initGUI()
+        self.show()
+    
+    def initGUI(self):
+        self.layout0 = QHBoxLayout()
+        self.layout1 = QHBoxLayout()
+        self.layout2 = QHBoxLayout()
+        self.layout3 = QHBoxLayout()
+        self.layout = QVBoxLayout()
+
+        self.open_file_button = QPushButton("Open")
+        self.add_pal_index_button = QPushButton("Add palette index")
+        self.rem_pal_index_button = QPushButton("Remove palette index")
+        self.edit_pal_index_button = QPushButton("Edit color at current index")
+        self.show_pal_index_button = QPushButton("Show the current palette index color")
+        self.save_file_button = QPushButton("Save as json")
+        self.pal_save_button = QPushButton("Export to pal")
+        self.export_button = QPushButton("Export to C")
+
+        self.pal_list = QComboBox()
+
+        self.layout0.addWidget(self.open_file_button)
+        self.layout1.addWidget(self.pal_list)
+        self.layout1.addWidget(self.add_pal_index_button)
+        self.layout1.addWidget(self.rem_pal_index_button)
+        self.layout2.addWidget(self.edit_pal_index_button)
+        self.layout2.addWidget(self.show_pal_index_button)
+        self.layout3.addWidget(self.save_file_button)
+        self.layout3.addWidget(self.pal_save_button)
+        self.layout3.addWidget(self.export_button)
+        
+        self.layout.addLayout(self.layout0)
+        self.layout.addLayout(self.layout1)
+        self.layout.addLayout(self.layout2)
+        self.layout.addLayout(self.layout3)
+        self.setLayout(self.layout)
+        pass
+    
+    def initBack(self):
+        pass
+    
+    def open_file(self):
+        pass
+    
+    def save_file(self):
+        pass
+    
+    def save_pal_file(self):
+        pass
+    
+    def export_file(self):
+        pass
+    
+    def pal_index_change(self, i):
+        pass
+    
+    def add_pal_index(self):
+        pass
+    
+    def rem_pal_index(self):
+        pass
+    
+    def edit_pal_index(self):
+        pass
+    
+    def show_pal_index(self):
+        pass
+
 
 main_app = QApplication([])
 main_root = QWidget()
-pal_list = QComboBox()
+
 pal_index_counter = 0
 
 def main_window():
-    main_root.setWindowTitle('GBA Palette Manager.')
     main_app.setStyle('Fusion')
-    layout0 = QHBoxLayout()
-    layout1 = QHBoxLayout()
-    layout2 = QHBoxLayout()
-    layout3 = QHBoxLayout()
-    layout = QVBoxLayout()
-    
-    open_file_button = QPushButton("Open.")
     open_file_button.clicked.connect(openfile)
     
     pal_list.addItem("0")
     pal_list.currentIndexChanged.connect(palindexchange)
-    
-    add_pal_index_button = QPushButton("Add palette index.")
     add_pal_index_button.clicked.connect(addpalindex)
-    
-    rem_pal_index_button = QPushButton("Remove palette index.")
     rem_pal_index_button.clicked.connect(rempalindex)
-    
-    edit_pal_index_button = QPushButton("Edit color at current index.")
     edit_pal_index_button.clicked.connect(editpalindex)
-    
-    show_pal_index_button = QPushButton("Show the current palette index color.")
     show_pal_index_button.clicked.connect(showpalindex)
-    
-    save_file_button = QPushButton("Save as json.")
     save_file_button.clicked.connect(savefile)
-    
-    pal_save_button = QPushButton("Export to pal.")
     pal_save_button.clicked.connect(savepalfile)
-    
-    export_button = QPushButton("Export to C.")
     export_button.clicked.connect(exportfile)
-    
-    layout0.addWidget(open_file_button)
-    
-    layout1.addWidget(pal_list)
-    layout1.addWidget(add_pal_index_button)
-    layout1.addWidget(rem_pal_index_button)
-    
-    layout2.addWidget(edit_pal_index_button)
-    layout2.addWidget(show_pal_index_button)
-    
-    layout3.addWidget(save_file_button)
-    layout3.addWidget(pal_save_button)
-    layout3.addWidget(export_button)
-    
-    layout.addLayout(layout0)
-    layout.addLayout(layout1)
-    layout.addLayout(layout2)
-    layout.addLayout(layout3)
-    
-    main_root.setLayout(layout)
-    
     main_root.show()
     main_app.exec_()
 
@@ -154,3 +193,11 @@ def showpalindex():
     bgpal.setColor(alert.backgroundRole(), QColor(clr_[0], clr_[1], clr_[2]))
     alert.setPalette(bgpal)
     alert.exec_()
+
+
+
+if __name__ == "__main__":
+    app = QApplication([])
+    wdw = MainRoot()
+    sys.exit(app.exec_())
+
